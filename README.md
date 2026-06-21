@@ -154,4 +154,4 @@ The best-performing model was selected based on both classification performance 
 
 ## 📄 License
 
-This project is intended for educational and research purposes.
+MIT
