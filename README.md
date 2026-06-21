@@ -40,21 +40,8 @@ Dataset preprocessing included:
 
 ## 🧠 Models Implemented
 
-### 1. Custom CNN
 
-A Convolutional Neural Network trained from scratch on the processed USL dataset.
-
-Features include:
-
-- Multiple convolutional layers
-- Batch Normalization
-- Max Pooling
-- Dropout regularization
-- Softmax output layer
-
----
-
-### 2. Transfer Learning Models
+### 1. Transfer Learning Models
 
 Several pretrained CNN architectures were evaluated and fine-tuned for Urdu Sign Language recognition, including:
 
@@ -67,18 +54,33 @@ Transfer learning was performed using ImageNet-pretrained weights followed by se
 
 ---
 
-### 3. Artificial Neural Network (ANN)
+### 2. Artificial Neural Networks (ANN)
 
-Instead of raw images, this approach uses **MediaPipe** to extract 21 hand landmarks.
+Instead of classifying raw images, our landmark-based approach first extracts hand geometry using **MediaPipe Hands**.
 
-Each hand is represented by:
+Two different feature representations were explored:
 
-- 21 landmarks
-- (x, y, z) coordinates
+#### ANN A — Landmark Coordinates
+
+Each detected hand is represented by:
+
+- 21 MediaPipe hand landmarks
+- (x, y, z) coordinates for every landmark
 - 63-dimensional feature vector
 
-These landmark features are then used to train a fully connected Artificial Neural Network for lightweight and efficient classification.
+These landmark coordinates are used as input to a fully connected Artificial Neural Network.
 
+#### ANN B — Landmark Coordinates + Joint Angles
+
+To capture the geometric relationships between fingers more effectively, we extended the feature vector by computing **joint angles** from the MediaPipe hand skeleton.
+
+This representation includes:
+
+- 63 landmark coordinate features (x, y, z)
+- 15 joint-angle features
+- 78-dimensional feature vector
+
+Several ANN architectures were evaluated using different regularization strategies and learning-rate schedules to compare the effectiveness of pure landmark features versus landmark-plus-angle features.
 ---
 
 ## ⚙️ Technologies Used
